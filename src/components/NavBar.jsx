@@ -51,6 +51,7 @@ const NavBar = () => {
           <></>
         )}
 
+        {/* logout create,result */}
         {location.pathname === "/presenterCreate" ||
         location.pathname === "/presenterResult" ? (
           <>
@@ -70,7 +71,7 @@ const NavBar = () => {
                 className="btn btn-outline btn-error"
                 onClick={userLogout}
               >
-                logout
+                Logout
               </button>
             </div>
           </>

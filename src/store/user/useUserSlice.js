@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const useUserSlice = create(
   persist(
@@ -10,7 +11,50 @@ const useUserSlice = create(
       userLoading: false,
       userError: "",
 
-      // validate user
+      // reset
+      resetUserSlice: () => {
+        set({ user: {}, userLoading: false, userError: "" });
+      },
+
+      // user registration
+      registerNewUser: async ({ name, email, password }) => {
+        try {
+          set({ userLoading: true });
+          const response = await axios.post(
+            "http://localhost:3000/api/user/register",
+            {
+              name,
+              email,
+              password,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const { data, status } = response;
+          if (status === 201) {
+            toast.success(data);
+            set({
+              userError: "",
+            });
+            return true;
+          } else {
+            return false;
+          }
+        } catch (err) {
+          set({
+            userError: err.response ? err.response.data : "An error occurred",
+          });
+          return false;
+        } finally {
+          set({ userLoading: false });
+        }
+      },
+
+      // user validation
       validateUser: async ({ email, password }) => {
         try {
           set({ userLoading: true });
@@ -19,12 +63,12 @@ const useUserSlice = create(
             "http://localhost:3000/api/user/login",
             { email, password },
             {
-              withCredentials: true,
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
+
           const { data, status } = response;
           if (status === 200) {
             set({
@@ -33,13 +77,19 @@ const useUserSlice = create(
                 token: data.token,
               },
             });
+            set({
+              userError: "",
+            });
 
+            toast.success("login successfull");
             return true;
           } else {
             return false;
           }
         } catch (err) {
-          set({ userError: err.message });
+          set({
+            userError: err.response ? err.response.data : "An error occurred",
+          });
 
           return false;
         } finally {
@@ -49,21 +99,28 @@ const useUserSlice = create(
 
       // logout user
       userLogout: async () => {
-        const response = await axios.post(
-          "http://localhost:3000/api/user/logout",
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${get().user.token}`,
-            },
+        try {
+          set({ userLoading: true });
+          const response = await axios.post(
+            "http://localhost:3000/api/user/logout",
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${get().user.token}`,
+              },
+            }
+          );
+          const { data, status } = response;
+          if (status === 200) {
+            set({ userError: "" });
+            set({ user: {} });
+            toast.success(data.msg);
           }
-        );
-        const { data, status } = response;
-        if (status === 200) {
+        } catch (err) {
+          set({ userError: err.message });
+        } finally {
           set({ userLoading: false });
-          set({ userError: "true" });
-          set({ user: {} });
         }
       },
     }),

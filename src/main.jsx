@@ -56,23 +56,6 @@ const router = createBrowserRouter([
         path: "participants/:roomId",
         element: <ParticipantsRoom />,
       },
-
-      // all routes regarding the presenter
-      {
-        path: "presenter",
-        errorElement: <ErrorPage />,
-        children: [
-          {
-            index: true,
-            element: <PresenterCreate />,
-          },
-          {
-            path: "result",
-            element: <PresenterResult />,
-          },
-        ],
-      },
-      // end of presenter routes
     ],
   },
 ]);
