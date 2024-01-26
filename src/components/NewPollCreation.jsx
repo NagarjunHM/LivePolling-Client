@@ -1,38 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { IoClose, IoAddOutline } from "react-icons/io5";
 import { RiDeleteBin7Line } from "react-icons/ri";
-import { usePollContext } from "../context/PollContext.jsx";
-import { generateRoomId, socket } from "../socket.js";
+
+import usePollSlice from "../store/poll/usePollSlice.js";
 
 const NewPollCreation = () => {
   const {
     questions,
-    setRoomId,
-    roomId,
     handleQuestionInput,
     handleOptions,
     handleAddOption,
-    handleOptionDelete,
+    handleDeleteOption,
     handleQuestionDelete,
     handleQuestionAdd,
     handleForm,
-  } = usePollContext();
-
-  useEffect(() => {
-    setRoomId(generateRoomId());
-  }, []);
-
-  useEffect(() => {
-    socket.emit("createRoom", roomId);
-  }, [roomId]);
+  } = usePollSlice();
 
   return (
     <div>
       <form onSubmit={handleForm}>
         {questions.map((question, questionIndex) => (
           <React.Fragment key={questionIndex}>
-            <div className="my-4 card card-body bg-base-300">
+            <div className="my-4 shadow bg-base-200 card card-body ">
               {/* card close button */}
               <div className="justify-end card-actions">
                 <div
@@ -79,7 +69,7 @@ const NewPollCreation = () => {
                   {optionIndex !== 0 ? (
                     <button
                       onClick={() =>
-                        handleOptionDelete(questionIndex, optionIndex)
+                        handleDeleteOption(questionIndex, optionIndex)
                       }
                     >
                       <RiDeleteBin7Line size="1.5em" className="text-red-500" />
@@ -116,7 +106,7 @@ const NewPollCreation = () => {
         </div>
 
         {/* submit button */}
-        <div className="fixed flex px-4 btm-nav backdrop-blur">
+        <div className="fixed flex px-4 btm-nav backdrop-blur bg-base-300">
           <div className="items-end ">
             <button className=" btn btn-warning" type="submit">
               send

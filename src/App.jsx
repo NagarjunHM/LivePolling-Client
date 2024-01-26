@@ -17,7 +17,7 @@ const App = () => {
         {/* loader component will only be trigger for user related actions like login ,logout and registration */}
       </div>
       {userLoading ? <LoaderComp /> : <></>}
-      <div className="mx-4 mb-20">
+      <div className="mx-4 mb-20 ">
         <Outlet />
       </div>
       <ToastContainer

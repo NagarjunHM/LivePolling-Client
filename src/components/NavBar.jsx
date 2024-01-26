@@ -11,7 +11,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="shadow navbar bg-base-200">
+      <div className="shadow navbar bg-base-300">
         <div className="flex-grow">
           <p className="text-2xl font-medium cursor-default">
             <span className="text-green-500">Live</span>Polling
