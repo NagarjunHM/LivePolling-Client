@@ -6,7 +6,9 @@ import { toast } from "react-toastify";
 
 const usePollSlice = create(
   persist(
-    (set) => ({
+    (set, get) => ({
+      pollLoading: false,
+      pollError: "",
       roomId: "",
       roomName: "",
       questions: [
@@ -15,7 +17,7 @@ const usePollSlice = create(
           options: [""],
           correctAnswerIndex: "",
           usersAnswer: [],
-          votes: { 0: 0, 1: 0, 2: 0, 3: 0 },
+          votes: {},
         },
       ],
 
@@ -86,7 +88,7 @@ const usePollSlice = create(
               options: [""],
               correctAnswerIndex: "",
               usersAnswer: [],
-              votes: { 0: 0, 1: 0, 2: 0, 3: 0 },
+              votes: {},
             },
           ];
           return { questions: newQuestion };
@@ -94,8 +96,48 @@ const usePollSlice = create(
       },
 
       // handle form
-      handleForm: (e) => {
+      handleForm: async (e) => {
         e.preventDefault();
+
+        console.log(get().questions);
+        // try {
+        //   set({ pollLoading: true });
+        //   const response = await axios.post(
+        //     "http://localhost:3000/api/poll",
+        //     { roomId: 123, roomName: "456", questions: get().questions },
+        //     {
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGVyIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTcwNjMyNzI3MywiZXhwIjoxNzA2NDEzNjczfQ.zjAPdwkHGmgDm7SvM9Q95dWoQ4s_n5hwhDFRazq6BS4}`,
+        //       },
+        //     }
+        //   );
+        //   const { data, status } = response;
+        //   if (status === 200) {
+        //     console.log(data);
+        //   }
+        // } catch (err) {
+        //   console.log(err.message);
+        //   set({ pollError: err.message });
+        // } finally {
+        //   set({ pollLoading: false });
+        // }
+      },
+
+      handlePollReset: () => {
+        set({
+          roomId: "",
+          roomName: "",
+          questions: [
+            {
+              question: "",
+              options: [""],
+              correctAnswerIndex: "",
+              usersAnswer: [],
+              votes: {},
+            },
+          ],
+        });
       },
     }),
     { name: "poll" }

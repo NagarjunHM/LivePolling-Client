@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { PollProvider } from "./context/PollContext.jsx";
 import Participants from "./pages/Participants.jsx";
 import ParticipantsRoom from "./pages/ParticipantsRoom.jsx";
 import PresenterCreate from "./pages/PresenterCreate.jsx";
@@ -61,7 +60,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <PollProvider>
-    <RouterProvider router={router} />
-  </PollProvider>
+  <RouterProvider router={router} />
 );

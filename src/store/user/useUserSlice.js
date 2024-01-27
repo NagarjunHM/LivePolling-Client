@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 
 import axios from "axios";
 import { toast } from "react-toastify";
+// import axiosInstance from "../../axios/AxiosInstance";
 
 const useUserSlice = create(
   persist(
@@ -101,16 +102,22 @@ const useUserSlice = create(
       userLogout: async () => {
         try {
           set({ userLoading: true });
-          const response = await axios.post(
-            "http://localhost:3000/api/user/logout",
-            {},
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${get().user.token}`,
-              },
-            }
-          );
+          // const response = await axios.post(
+          //   "http://localhost:3000/api/user/logout",
+          //   {},
+          //   {
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //       Authorization: `Bearer ${get().user.token}`,
+          //     },
+          //   }
+          // );
+          const response = await axiosInstance({
+            url: "user/logout",
+            method: "POST",
+            data: {},
+          });
+          console.log(response);
           const { data, status } = response;
           if (status === 200) {
             set({ userError: "" });

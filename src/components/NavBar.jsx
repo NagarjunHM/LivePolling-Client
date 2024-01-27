@@ -1,13 +1,12 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import useUserSlice from "../store/user/useUserSlice";
+import usePollSlice from "../store/poll/usePollSlice";
 
 const NavBar = () => {
   const location = useLocation();
-  const { user, userLogout } = useUserSlice((state) => ({
-    user: state.user,
-    userLogout: state.userLogout,
-  }));
+  const { user, userLogout } = useUserSlice();
+  const { handlePollReset } = usePollSlice();
 
   return (
     <>
@@ -69,7 +68,10 @@ const NavBar = () => {
               <button className="btn-ghost">{user.email}</button>
               <button
                 className="btn btn-outline btn-error"
-                onClick={userLogout}
+                onClick={() => {
+                  userLogout();
+                  handlePollReset();
+                }}
               >
                 Logout
               </button>
