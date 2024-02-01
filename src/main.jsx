@@ -11,6 +11,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import UserSelection from "./pages/UserSelection.jsx";
 import PresenterLogin from "./pages/PresenterLogin.jsx";
 import PresenterRegistration from "./pages/PresenterRegistration.jsx";
+import PresenterResultInDepth from "./pages/PresenterResultInDepth.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <PresenterResult />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "presenterResult/:roomId",
+        element: (
+          <ProtectedRoute>
+            <PresenterResultInDepth />
           </ProtectedRoute>
         ),
       },

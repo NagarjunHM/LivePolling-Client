@@ -14,6 +14,7 @@ const NewPollCreation = () => {
     handleDeleteOption,
     handleQuestionDelete,
     handleQuestionAdd,
+    handleCorrectAnswer,
     handleForm,
   } = usePollSlice();
 
@@ -56,6 +57,15 @@ const NewPollCreation = () => {
               {/* options */}
               {question.options.map((option, optionIndex) => (
                 <div key={optionIndex} className="flex items-center gap-4">
+                  <input
+                    type="radio"
+                    name={questionIndex}
+                    className="radio"
+                    value={optionIndex}
+                    onChange={() => {
+                      handleCorrectAnswer(optionIndex, questionIndex);
+                    }}
+                  />
                   <input
                     type="text"
                     placeholder="Type here"
@@ -109,7 +119,7 @@ const NewPollCreation = () => {
         <div className="fixed flex px-4 btm-nav backdrop-blur bg-base-300">
           <div className="items-end ">
             <button className=" btn btn-warning" type="submit">
-              send
+              Save
             </button>
           </div>
         </div>

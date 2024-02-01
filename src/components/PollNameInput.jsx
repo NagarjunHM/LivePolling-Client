@@ -3,13 +3,9 @@ import usePollSlice from "../store/poll/usePollSlice";
 import { generateRoomId } from "../socket";
 
 const PollNameInput = () => {
-  const { setRoomName, setRoomId, roomName, roomId } = usePollSlice();
+  const { setRoomName, roomName, roomId, setRoomId } = usePollSlice();
 
-  useEffect(() => {
-    if (!roomId) {
-      setRoomId(generateRoomId());
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   // onchange function to handle room name input
   const handleRoomInput = (e) => {

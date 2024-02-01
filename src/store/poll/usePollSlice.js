@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import axios from "axios";
+import { socket } from "../../socket";
 import { toast } from "react-toastify";
 
 const usePollSlice = create(
@@ -95,33 +96,51 @@ const usePollSlice = create(
         });
       },
 
+      handleCorrectAnswer: (correctAnswerIndex, questionIndex) => {
+        set((state) => {
+          let newQuestions = [...state.questions];
+          newQuestions[questionIndex].correctAnswerIndex = correctAnswerIndex;
+          return { questions: newQuestions };
+        });
+      },
+
       // handle form
       handleForm: async (e) => {
         e.preventDefault();
-
         console.log(get().questions);
-        // try {
-        //   set({ pollLoading: true });
-        //   const response = await axios.post(
-        //     "http://localhost:3000/api/poll",
-        //     { roomId: 123, roomName: "456", questions: get().questions },
-        //     {
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGVyIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTcwNjMyNzI3MywiZXhwIjoxNzA2NDEzNjczfQ.zjAPdwkHGmgDm7SvM9Q95dWoQ4s_n5hwhDFRazq6BS4}`,
-        //       },
-        //     }
-        //   );
-        //   const { data, status } = response;
-        //   if (status === 200) {
-        //     console.log(data);
-        //   }
-        // } catch (err) {
-        //   console.log(err.message);
-        //   set({ pollError: err.message });
-        // } finally {
-        //   set({ pollLoading: false });
-        // }
+        try {
+          set({ pollLoading: true });
+          const response = await axios.post(
+            "http://localhost:3000/api/poll",
+            {
+              roomId: get().roomId,
+              roomName: get().roomName,
+              questions: get().questions,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${
+                  JSON.parse(window.localStorage.getItem("user")).state.user
+                    .token
+                }`,
+              },
+            }
+          );
+          const { data, status } = response;
+          console.log(data);
+          if (status === 200) {
+            console.log("questions saved");
+            // socket.emit("createPoll", {
+            //   roomId: get().roomId,
+            //   questions: get().questions,
+            // });
+          }
+        } catch (err) {
+          set({ pollError: err.response.data });
+        } finally {
+          set({ pollLoading: false });
+        }
       },
 
       handlePollReset: () => {

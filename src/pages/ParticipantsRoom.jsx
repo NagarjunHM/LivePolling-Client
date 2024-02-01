@@ -53,7 +53,7 @@ const ParticipantsRoom = () => {
   // function to send the selected poll
   const sendPollResponse = () => {
     console.log(userAnswer);
-    socket.emit("userAnswer", poll, userAnswer, roomId);
+    socket.emit("userAnswer", userAnswer, roomId);
   };
 
   return (
@@ -61,7 +61,7 @@ const ParticipantsRoom = () => {
       {poll.map((poll, pollIndex) => (
         <div key={pollIndex} className="card card-body bg-base-300 ">
           <div className="text-2xl">
-            <span className="mr-7">{pollIndex + 1}</span>
+            <span className="mr-7">{pollIndex + 1}.</span>
             {poll.question}
           </div>
 
@@ -78,7 +78,7 @@ const ParticipantsRoom = () => {
                     }}
                     className="radio"
                   />
-                  <span className="text-xl label-text">Remember me</span>
+                  <span className="text-xl label-text">{option}</span>
                 </label>
               </div>
             </div>
