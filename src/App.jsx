@@ -4,13 +4,12 @@ import NavBar from "./components/NavBar";
 import { Outlet } from "react-router-dom";
 import useUserSlice from "./store/user/useUserSlice";
 import LoaderComp from "./components/LoaderComp";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const userLoading = useUserSlice((state) => state.userLoading);
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 antialiased">
       <div className="sticky top-0 z-20 ">
         <NavBar />
 
@@ -20,18 +19,18 @@ const App = () => {
       <div className="mx-4 mb-20 ">
         <Outlet />
       </div>
-      <ToastContainer
+      <Toaster
         position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition:Bounce
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          // Define default options
+          className: "py-4 px-6",
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+        }}
       />
     </div>
   );

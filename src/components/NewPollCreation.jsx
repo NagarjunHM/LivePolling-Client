@@ -1,8 +1,7 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoClose, IoAddOutline } from "react-icons/io5";
 import { RiDeleteBin7Line } from "react-icons/ri";
-
 import usePollSlice from "../store/poll/usePollSlice.js";
 
 const NewPollCreation = () => {
@@ -16,14 +15,27 @@ const NewPollCreation = () => {
     handleQuestionAdd,
     handleCorrectAnswer,
     handleForm,
+    redirect,
+    roomId,
+    setRedirect,
   } = usePollSlice();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (redirect) {
+      navigate(`/presenterResult`);
+    }
+
+    setRedirect(false);
+  }, [redirect]);
 
   return (
     <div>
-      <form onSubmit={handleForm}>
+      <div>
         {questions.map((question, questionIndex) => (
           <React.Fragment key={questionIndex}>
-            <div className="my-4 shadow bg-base-200 card card-body ">
+            <div className="my-4 border shadow card card-body ">
               {/* card close button */}
               <div className="justify-end card-actions">
                 <div
@@ -116,14 +128,14 @@ const NewPollCreation = () => {
         </div>
 
         {/* submit button */}
-        <div className="fixed flex px-4 btm-nav backdrop-blur bg-base-300">
+        <div className="fixed flex px-4 shadow btm-nav backdrop-blur">
           <div className="items-end ">
-            <button className=" btn btn-warning" type="submit">
+            <button className=" btn btn-warning" onClick={handleForm}>
               Save
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

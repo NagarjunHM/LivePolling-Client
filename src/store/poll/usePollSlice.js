@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 import axios from "axios";
 import { socket } from "../../socket";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const usePollSlice = create(
   persist(
@@ -12,6 +12,8 @@ const usePollSlice = create(
       pollError: "",
       roomId: "",
       roomName: "",
+      roomDesc: "",
+      redirect: false,
       questions: [
         {
           question: "",
@@ -21,15 +23,30 @@ const usePollSlice = create(
           votes: {},
         },
       ],
+      isPollOpen: false,
 
       // action to set room name
       setRoomName: (room) => {
         set({ roomName: room });
       },
 
+      // action to set room description
+      setRoomDesc: (room) => {
+        set({ roomDesc: room });
+      },
+
       // action to set room id
       setRoomId: (id) => {
         set({ roomId: id });
+      },
+
+      setPollOpenClose: (value) => {
+        set({ isPollOpen: value });
+        console.log("isPollOpen updated:", value);
+      },
+
+      setRedirect: (value) => {
+        set({ redirect: value });
       },
 
       // handling the question input
@@ -107,7 +124,7 @@ const usePollSlice = create(
       // handle form
       handleForm: async (e) => {
         e.preventDefault();
-        console.log(get().questions);
+
         try {
           set({ pollLoading: true });
           const response = await axios.post(
@@ -115,6 +132,7 @@ const usePollSlice = create(
             {
               roomId: get().roomId,
               roomName: get().roomName,
+              roomDesc: get().roomDesc,
               questions: get().questions,
             },
             {
@@ -127,10 +145,15 @@ const usePollSlice = create(
               },
             }
           );
+
           const { data, status } = response;
-          console.log(data);
+
+          console.log(data, status);
           if (status === 200) {
-            console.log("questions saved");
+            set({ redirect: true });
+
+            toast.success(`${data.poll.roomId} room is saved`);
+
             // socket.emit("createPoll", {
             //   roomId: get().roomId,
             //   questions: get().questions,
@@ -138,6 +161,7 @@ const usePollSlice = create(
           }
         } catch (err) {
           set({ pollError: err.response.data });
+          toast.error(err.response.data);
         } finally {
           set({ pollLoading: false });
         }
@@ -147,6 +171,7 @@ const usePollSlice = create(
         set({
           roomId: "",
           roomName: "",
+          roomDesc: "",
           questions: [
             {
               question: "",

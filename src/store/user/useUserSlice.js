@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 const useUserSlice = create(
   persist(
@@ -82,6 +83,7 @@ const useUserSlice = create(
             });
 
             toast.success("login successfull");
+
             return true;
           } else {
             return false;

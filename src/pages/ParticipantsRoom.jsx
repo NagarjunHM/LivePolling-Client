@@ -11,9 +11,12 @@ const ParticipantsRoom = () => {
     socket.emit("joinRoom", roomId);
 
     socket.on("sendPoll", (value) => {
-      console.log(value);
       setPoll(value);
     });
+
+    return () => {
+      socket.off("sendPoll");
+    };
   }, []);
 
   // function to save the selected option
@@ -52,13 +55,12 @@ const ParticipantsRoom = () => {
 
   // function to send the selected poll
   const sendPollResponse = () => {
-    console.log(userAnswer);
     socket.emit("userAnswer", userAnswer, roomId);
   };
 
   return (
     <div className="flex flex-col gap-4">
-      {poll.map((poll, pollIndex) => (
+      {poll?.map((poll, pollIndex) => (
         <div key={pollIndex} className="card card-body bg-base-300 ">
           <div className="text-2xl">
             <span className="mr-7">{pollIndex + 1}.</span>

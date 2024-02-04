@@ -39,7 +39,7 @@ const PresenterLogin = () => {
 
     const response = await validateUser(value);
     if (response) {
-      navigate("/presenterCreate", { replace: true });
+      navigate("/presenterResult", { replace: true });
     }
   };
 

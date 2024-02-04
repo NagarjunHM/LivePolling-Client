@@ -6,11 +6,11 @@ import usePollSlice from "../store/poll/usePollSlice";
 const NavBar = () => {
   const location = useLocation();
   const { user, userLogout } = useUserSlice();
-  const { handlePollReset } = usePollSlice();
+  const { handlePollReset, isPollOpen } = usePollSlice();
 
   return (
     <>
-      <div className="shadow navbar bg-base-300">
+      <div className="shadow navbar backdrop-blur-lg">
         <div className="flex-grow">
           <p className="text-2xl font-medium cursor-default">
             <span className="text-green-500">Live</span>Polling
@@ -51,21 +51,29 @@ const NavBar = () => {
         )}
 
         {/* logout create,result */}
-        {location.pathname === "/presenterCreate" ||
-        location.pathname === "/presenterResult" ? (
+        {location.pathname.startsWith("/presenterCreate") ||
+        location.pathname.startsWith("/presenterResult") ? (
           <>
             <div className="flex-grow">
               <ul className="px-1 menu menu-horizontal">
                 <li className="px-1">
-                  <NavLink to="/presenterCreate">Create</NavLink>
+                  <NavLink to="/presenterResult">Polls</NavLink>
                 </li>
                 <li className="px-1">
-                  <NavLink to="/presenterResult">Result</NavLink>
+                  <NavLink to="/presenterCreate">Create</NavLink>
                 </li>
               </ul>
             </div>
             <div className="gap-4 flex-0">
-              <button className="btn-ghost">{user.email}</button>
+              <button className="relative btn ">
+                {user.email}
+                <div
+                  className={`absolute w-3 h-3 ${
+                    isPollOpen ? "bg-green-500" : "bg-red-500"
+                  } rounded-full top-[-5px] right-[-5px]`}
+                ></div>
+              </button>
+
               <button
                 className="btn btn-outline btn-error"
                 onClick={() => {

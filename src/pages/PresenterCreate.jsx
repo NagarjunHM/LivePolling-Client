@@ -3,17 +3,20 @@ import NewPollCreation from "../components/NewPollCreation";
 import PollNameInput from "../components/PollNameInput";
 import { socket, generateRoomId } from "../socket";
 import usePollSlice from "../store/poll/usePollSlice";
+import ProgressBar from "../components/ProgressBar";
 
 const PresenterCreate = () => {
-  const { roomId, setRoomId } = usePollSlice();
+  const { roomId, setRoomId, pollLoading } = usePollSlice();
   useEffect(() => {
     if (!roomId) {
       setRoomId(generateRoomId());
     }
     // socket.emit("createRoom", roomId);
   }, []);
+
   return (
     <div>
+      {pollLoading ? <ProgressBar /> : <></>}
       <PollNameInput />
       <NewPollCreation />
     </div>
