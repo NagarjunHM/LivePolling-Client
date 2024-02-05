@@ -11,7 +11,7 @@ const OpenClosePolling = () => {
     setPollOpenClose(false);
   };
   return (
-    <div className="card card-body">
+    <div className="card card-body card-compact">
       <div className="flex justify-between">
         <button
           className="btn btn-success btn-outline"

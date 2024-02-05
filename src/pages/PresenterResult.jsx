@@ -24,6 +24,7 @@ const PresenterResult = () => {
       // Update the state with the fetched results
       if (response.status === 200) {
         setAllResult(response.data.reverse());
+        console.log(response.data);
       }
     } catch (err) {
       console.error(err);
@@ -50,6 +51,7 @@ const PresenterResult = () => {
           },
         }
       );
+      console.log(response);
 
       // Update the state with the fetched results
       if (response.status === 200) {
@@ -59,6 +61,8 @@ const PresenterResult = () => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,8 +71,16 @@ const PresenterResult = () => {
       <>
         <ProgressBar />
         <div className="flex flex-col gap-4">
-          <div className="w-full h-[111px] skeleton "></div>
-          <div className="w-full h-[111px] skeleton"></div>
+          <div className="w-full h-[197px] skeleton card card-body">
+            <div className="h-12 skeleton"></div>
+            <div className="h-10 skeleton"></div>
+            <div className="w-full h-10 skeleton"></div>
+          </div>
+          <div className="w-full h-[197px] skeleton card card-body">
+            <div className="h-12 skeleton"></div>
+            <div className="h-10 skeleton"></div>
+            <div className="w-full h-10 skeleton"></div>
+          </div>
         </div>
       </>
     );
@@ -91,24 +103,31 @@ const PresenterResult = () => {
         {allResult?.map((result, resultIndex) => (
           <Link
             to={`/presenterResult/${result.roomId}`}
-            className="border shadow card card-body"
+            className="relative border shadow card card-body "
             key={resultIndex}
           >
-            <div className="flex justify-between gap-4">
+            <div className="card-title">Room Name : {result.roomName}</div>
+
+            <div>
               <div>
-                <div>roomId : {result.roomId}</div>
-                <div>roomName : {result.roomName}</div>
+                Room Id :
+                <div className="ml-2 cursor-default btn bg-base">
+                  {result.roomId}
+                </div>
               </div>
-              <button
-                className="text-red-500 btn btn-ghost"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleRoomDeletion(result.roomId);
-                }}
-              >
-                <AiOutlineDelete size="2rem" />
-              </button>
             </div>
+
+            <div className="font-light">Description : {result.roomDesc}</div>
+
+            <button
+              className="absolute top-0 right-0 m-5 text-red-500 btn btn-ghost"
+              onClick={(e) => {
+                e.preventDefault();
+                handleRoomDeletion(result.roomId);
+              }}
+            >
+              <AiOutlineDelete size="2rem" />
+            </button>
           </Link>
         ))}
       </div>

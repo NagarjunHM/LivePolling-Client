@@ -2,16 +2,23 @@ import React from "react";
 
 const ResultDisplay = ({ questions }) => {
   return (
-    <div>
-      <div className="flex flex-col gap-4">
+    <div className="">
+      <div className="w-full">
         {questions?.map((question, questionIndex) => (
-          <div className="border shadow card card-body " key={questionIndex}>
-            <div className="text-2xl">
-              <span className="mr-7">{questionIndex + 1}.</span>
-              {question.question}
+          <div
+            key={questionIndex}
+            className="mb-4 border shadow card card-body"
+          >
+            <div className="flex justify-between">
+              <div className="mb-4 text-xl font-bold ">
+                {questionIndex + 1}. {question.question}
+              </div>
+              <div className="font-light badge badge-neutral">
+                Total Votes : {question.userAnswer.length}
+              </div>
             </div>
 
-            {/* looping through options */}
+            {/* Looping through options */}
             {question.options.map((option, optionIndex) => {
               const votes =
                 question.votes && question.votes[optionIndex]
@@ -22,37 +29,31 @@ const ResultDisplay = ({ questions }) => {
                 totalVotes > 0 ? (votes / totalVotes) * 100 : 0;
 
               return (
-                <div key={optionIndex} className="items-start card-actions ">
-                  <div className="w-screen">
-                    <div className="form-control">
-                      <label className="flex gap-4 cursor-pointer label">
-                        <input
-                          type="radio"
-                          name={questionIndex}
-                          className="radio"
-                        />
-                        <span className="text-xl label-text">{option}</span>
-                      </label>
-                    </div>
-                    <progress
-                      className="w-full progress"
-                      value={percentage}
-                      max="100"
-                    ></progress>
-                    <div className="mt-1 text-xs text-center">
-                      {percentage.toFixed(2)}%
-                    </div>
+                <div
+                  key={optionIndex}
+                  className={`p-1 mb-4 rounded ${
+                    optionIndex === question.correctAnswerIndex
+                      ? "bg-green-200"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-lg">{option}</span>
+                    <span className="text-sm font-semibold">
+                      Votes: {votes} | Per: {percentage.toFixed(2)}%
+                    </span>
+                  </div>
+                  <div className="h-2 overflow-hidden bg-gray-200 rounded-full">
+                    <div
+                      className="h-full bg-info"
+                      style={{ width: `${percentage}%` }}
+                    ></div>
                   </div>
                 </div>
               );
             })}
           </div>
         ))}
-        <div className="fixed flex px-4 bg-blue-500 btm-nav backdrop-blur">
-          <div className="items-end ">
-            <button className=" btn btn-warning">send</button>
-          </div>
-        </div>
       </div>
     </div>
   );

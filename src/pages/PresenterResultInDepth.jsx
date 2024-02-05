@@ -13,12 +13,16 @@ const PresenterResultInDepth = () => {
   const { roomId } = useParams();
   const [allResult, setAllResult] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState([]);
   const { isPollOpen, setPollOpenClose } = usePollSlice();
 
   useEffect(() => {
     const fetchSpecificPoll = async () => {
       try {
-        setLoading(true);
+        if (!refresh) {
+          setLoading(true);
+        }
+
         const response = await axios.get(
           `http://localhost:3000/api/poll/${roomId}`,
           {
@@ -40,6 +44,7 @@ const PresenterResultInDepth = () => {
         console.error(err);
       } finally {
         setLoading(false);
+        setRefresh(false);
       }
     };
 
@@ -52,6 +57,7 @@ const PresenterResultInDepth = () => {
     socket.on("updatedWithUserAns", async ({ reload }) => {
       if (reload) {
         fetchSpecificPoll();
+        setRefresh(true);
       }
     });
 
@@ -66,7 +72,6 @@ const PresenterResultInDepth = () => {
   // if poll is open then create a room and send the questions
   if (isPollOpen) {
     socket.emit("createRoom", roomId);
-
     socket.emit("createPoll", {
       roomId,
       questions: allResult.questions,
@@ -96,7 +101,7 @@ const PresenterResultInDepth = () => {
         <RoomBasicInfo
           roomId={roomId}
           roomName={allResult.roomName}
-          roomDescription="this is a simple room description "
+          roomDescription={allResult.roomDesc}
         />
         <OpenClosePolling />
         <ResultDisplay questions={allResult.questions} />

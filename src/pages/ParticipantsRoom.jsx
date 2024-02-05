@@ -6,12 +6,18 @@ const ParticipantsRoom = () => {
   const { roomId } = useParams();
   const [poll, setPoll] = useState([]);
   const [userAnswer, setUserAnswer] = useState([]);
+  const [thankYou, setThankYou] = useState("");
 
   useEffect(() => {
     socket.emit("joinRoom", roomId);
 
     socket.on("sendPoll", (value) => {
       setPoll(value);
+    });
+
+    socket.on("thankYou", (value) => {
+      setThankYou(value);
+      setPoll("");
     });
 
     return () => {
@@ -58,11 +64,32 @@ const ParticipantsRoom = () => {
     socket.emit("userAnswer", userAnswer, roomId);
   };
 
+  if (poll?.length === 0) {
+    return (
+      <div className="fixed top-[40%] left-[50%] translate-x-[-50%] translate-y-[50%] ">
+        <div className="text-3xl font-light">
+          waiting for Presenter to send poll...!
+        </div>
+      </div>
+    );
+  }
+
+  if (thankYou) {
+    return (
+      <div className="fixed top-[40%] left-[50%] translate-x-[-50%] translate-y-[50%] ">
+        <div className="text-3xl font-light">ThankYou for your response</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {poll?.map((poll, pollIndex) => (
-        <div key={pollIndex} className="card card-body bg-base-300 ">
-          <div className="text-2xl">
+        <div
+          key={pollIndex}
+          className="border shadow card card-body card-compact "
+        >
+          <div className="text-xl font-bold">
             <span className="mr-7">{pollIndex + 1}.</span>
             {poll.question}
           </div>
@@ -80,16 +107,21 @@ const ParticipantsRoom = () => {
                     }}
                     className="radio"
                   />
-                  <span className="text-xl label-text">{option}</span>
+                  <span className="text-lg label-text">{option}</span>
                 </label>
               </div>
             </div>
           ))}
         </div>
       ))}
-      <div className="fixed flex px-4 bg-blue-500 btm-nav backdrop-blur">
+      <div className="fixed flex px-4 border btm-nav backdrop-blur">
         <div className="items-end ">
-          <button className=" btn btn-warning" onClick={sendPollResponse}>
+          <button
+            className=" btn btn-info"
+            onClick={() => {
+              sendPollResponse();
+            }}
+          >
             send
           </button>
         </div>

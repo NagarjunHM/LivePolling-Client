@@ -145,10 +145,8 @@ const usePollSlice = create(
               },
             }
           );
-
           const { data, status } = response;
 
-          console.log(data, status);
           if (status === 200) {
             set({ redirect: true });
 
@@ -158,6 +156,22 @@ const usePollSlice = create(
             //   roomId: get().roomId,
             //   questions: get().questions,
             // });
+
+            // resetting the poll data
+            set({
+              roomId: "",
+              roomName: "",
+              roomDesc: "",
+              questions: [
+                {
+                  question: "",
+                  options: [""],
+                  correctAnswerIndex: "",
+                  usersAnswer: [],
+                  votes: {},
+                },
+              ],
+            });
           }
         } catch (err) {
           set({ pollError: err.response.data });

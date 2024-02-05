@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Participants = () => {
   const [roomId, setRoomId] = useState("");
+
   return (
     <div className="flex flex-col items-center gap-6">
       <div role="alert" className=" alert">
