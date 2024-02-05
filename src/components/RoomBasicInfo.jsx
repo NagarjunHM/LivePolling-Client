@@ -5,7 +5,7 @@ import { BsCopy } from "react-icons/bs";
 
 const RoomBasicInfo = ({ roomId, roomName, roomDescription }) => {
   return (
-    <div className="border shadow card card-body card-compact">
+    <div className="border shadow card card-body card-compact ">
       <div className="card-title">Room Name : {roomName}</div>
       <div>
         Room Id :

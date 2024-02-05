@@ -30,10 +30,7 @@ const PollNameInput = () => {
       <div className="flex items-center gap-2">
         <div>Your Room Id :</div>
         <CopyToClipboard text={roomId}>
-          <div className="mr-4 cursor-default btn bg-base">
-            <BsCopy />
-            {roomId}
-          </div>
+          <div className="mr-4 cursor-default btn bg-base">{roomId}</div>
         </CopyToClipboard>
         <button className="btn btn-neutral" onClick={handleRoomIdRegenrate}>
           regenerate

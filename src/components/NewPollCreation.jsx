@@ -128,8 +128,8 @@ const NewPollCreation = () => {
         </div>
 
         {/* submit button */}
-        <div className="fixed flex px-4 border shadow btm-nav backdrop-blur">
-          <div className="items-end ">
+        <div className="fixed bottom-0 left-0 flex justify-end w-full px-4 py-2 border shadow backdrop-blur">
+          <div className="">
             <button className=" btn btn-info" onClick={handleForm}>
               Save
             </button>

@@ -103,7 +103,7 @@ const PresenterResult = () => {
         {allResult?.map((result, resultIndex) => (
           <Link
             to={`/presenterResult/${result.roomId}`}
-            className="relative border shadow card card-body "
+            className="border shadow card card-body card-compact"
             key={resultIndex}
           >
             <div className="card-title">Room Name : {result.roomName}</div>

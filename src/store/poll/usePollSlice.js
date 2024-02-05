@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import axios from "axios";
-import { socket } from "../../socket";
+// import { socket } from "../../socket";
 import toast from "react-hot-toast";
 
 const usePollSlice = create(

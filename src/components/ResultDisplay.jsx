@@ -7,7 +7,7 @@ const ResultDisplay = ({ questions }) => {
         {questions?.map((question, questionIndex) => (
           <div
             key={questionIndex}
-            className="mb-4 border shadow card card-body"
+            className="mb-4 border shadow card card-body card-compact"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1 mb-4 text-xl font-bold flex-0">

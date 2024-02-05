@@ -2,8 +2,17 @@ import React, { useState, useEffect } from "react";
 import { socket } from "../socket";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useParticipantsPoll from "../store/participants/useParticipantsPoll";
 
 const ParticipantsRoom = () => {
+  // const {
+  //   poll,
+  //   userAnswer,
+  //   participantsMsg,
+  //   setPoll,
+  //   setParticipantsMsg,
+  //   setUserAnswer,
+  // } = useParticipantsPoll;
   const navigate = useNavigate();
   const { roomId } = useParams();
   const [poll, setPoll] = useState([]);
@@ -15,7 +24,9 @@ const ParticipantsRoom = () => {
   useEffect(() => {
     socket.emit("joinRoom", roomId);
 
-    const handlePoll = (value) => setPoll(value);
+    const handlePoll = (value) => {
+      setPoll(value);
+    };
 
     socket.on("sendPoll", handlePoll);
 

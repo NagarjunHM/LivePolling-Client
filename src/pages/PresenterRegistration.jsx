@@ -78,7 +78,7 @@ const PresenterRegistration = () => {
       )}
 
       {/* registration form */}
-      <div className="absolute top-0 min-h-screen hero ">
+      <div className="fixed top-0 flex items-center justify-center size-full">
         <div className="flex-col hero-content lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Presenter Registration</h1>

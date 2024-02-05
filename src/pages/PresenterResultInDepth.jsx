@@ -87,7 +87,7 @@ const PresenterResultInDepth = () => {
         <div className="flex flex-col gap-4">
           <div className="w-full h-[156px] skeleton"></div>
           <div className="w-full h-[112px] skeleton"></div>
-          <div className="w-full h-[443px] skeleton"></div>
+          <div className="w-full h-[370px] skeleton"></div>
         </div>
       </>
     );
