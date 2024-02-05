@@ -22,6 +22,7 @@ const RoomBasicInfo = ({ roomId, roomName, roomDescription }) => {
           </div>
         </CopyToClipboard>
       </div>
+
       <div className="font-light">Description : {roomDescription}</div>
     </div>
   );

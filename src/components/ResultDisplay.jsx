@@ -9,11 +9,11 @@ const ResultDisplay = ({ questions }) => {
             key={questionIndex}
             className="mb-4 border shadow card card-body"
           >
-            <div className="flex justify-between">
-              <div className="mb-4 text-xl font-bold ">
+            <div className="flex items-start justify-between">
+              <div className="flex-1 mb-4 text-xl font-bold flex-0">
                 {questionIndex + 1}. {question.question}
               </div>
-              <div className="font-light badge badge-neutral">
+              <div className="mt-1.5 font-light badge badge-neutral ">
                 Total Votes : {question.userAnswer.length}
               </div>
             </div>

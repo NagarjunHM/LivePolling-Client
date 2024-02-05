@@ -1,14 +1,17 @@
 import React from "react";
 import usePollSlice from "../store/poll/usePollSlice";
+import toast from "react-hot-toast";
 
 const OpenClosePolling = () => {
   const { setPollOpenClose, isPollOpen } = usePollSlice();
 
   const handleOpenPoll = () => {
     setPollOpenClose(true);
+    toast.success("poll is open");
   };
   const handleClosePoll = () => {
     setPollOpenClose(false);
+    toast.success("poll is closed");
   };
   return (
     <div className="card card-body card-compact">

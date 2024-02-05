@@ -5,7 +5,7 @@ import axios from "axios";
 import RoomBasicInfo from "../components/RoomBasicInfo";
 import ResultDisplay from "../components/ResultDisplay";
 import OpenClosePolling from "../components/OpenClosePolling";
-import LoaderComp from "../components/LoaderComp";
+// import LoaderComp from "../components/LoaderComp";
 import usePollSlice from "../store/poll/usePollSlice";
 import ProgressBar from "../components/ProgressBar";
 
@@ -50,9 +50,6 @@ const PresenterResultInDepth = () => {
 
     fetchSpecificPoll();
 
-    // // Join the room
-    // socket.emit("joinRoom", roomId);
-
     // Listen for socket updates
     socket.on("updatedWithUserAns", async ({ reload }) => {
       if (reload) {
@@ -66,6 +63,7 @@ const PresenterResultInDepth = () => {
       setPollOpenClose(false);
       socket.emit("closeRoom", roomId);
       socket.off("updatedWithUserAns");
+      socket.off("participantsCount");
     };
   }, []);
 

@@ -1,7 +1,9 @@
-// bread crumbs //
-error notifications
-loader when creating new poll when deleting new poll
-change ui of poll results
-participants should be able to join once the starts
-participants should recieve a error if the vote is sent after the poll close
-there should be persistant storage on the participants side
+Completed
+- loader when creating new poll when deleting new poll
+- change ui of poll results
+- rendered participants waiting ,thankyou and present closed poll conditionally
+
+Remaining
+- bread crumbs
+- error notifications
+- there should be persistant storage on the participants side
