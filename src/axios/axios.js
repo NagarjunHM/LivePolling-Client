@@ -11,8 +11,16 @@ const instance = axios.create({
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log(error.response.data);
+    console.log(error.request.responseURL);
+
     if (error.response.status === 403) {
+      const logoutPresent = error.request.responseURL;
+
+      if (logoutPresent.includes("logout")) {
+        window.location.href = "/presenterLogin";
+        return;
+      }
+
       alert("Token Expired, Login again...");
       window.location.href = "/presenterLogin";
     }

@@ -89,6 +89,7 @@ const usePollSlice = create(
       handleQuestionDelete: (questionIndex) => {
         set((state) => {
           let newQuestion = [...state.questions];
+          console.log(newQuestion.length);
           newQuestion.splice(questionIndex, 1);
           return { questions: newQuestion };
         });
@@ -126,25 +127,6 @@ const usePollSlice = create(
 
         try {
           set({ pollLoading: true });
-
-          // const response = await axios.post(
-          //   "http://localhost:3000/api/poll",
-          //   {
-          //     roomId: get().roomId,
-          //     roomName: get().roomName,
-          //     roomDesc: get().roomDesc,
-          //     questions: get().questions,
-          //   },
-          //   {
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //       Authorization: `Bearer ${
-          //         JSON.parse(window.localStorage.getItem("user")).state.user
-          //           .token
-          //       }`,
-          //     },
-          //   }
-          // );
 
           const response = await instance({
             url: "poll/",

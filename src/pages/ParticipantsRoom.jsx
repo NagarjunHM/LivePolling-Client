@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { socket } from "../socket";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import useParticipantsPoll from "../store/participants/useParticipantsPoll";
 
 const ParticipantsRoom = () => {
   const navigate = useNavigate();
