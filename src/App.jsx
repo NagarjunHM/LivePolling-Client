@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import NavBar from "./components/NavBar";
 import { Outlet } from "react-router-dom";
 import useUserSlice from "./store/user/useUserSlice";
@@ -9,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 const App = () => {
   const userLoading = useUserSlice((state) => state.userLoading);
   return (
-    <div className="flex flex-col gap-4 antialiased">
+    <div className="flex flex-col gap-4 antialiased bg-blue-100/10">
       <div className="sticky top-0 z-20 ">
         <NavBar />
 

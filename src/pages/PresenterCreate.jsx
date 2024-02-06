@@ -11,7 +11,6 @@ const PresenterCreate = () => {
     if (!roomId) {
       setRoomId(generateRoomId());
     }
-    // socket.emit("createRoom", roomId);
   }, []);
 
   return (

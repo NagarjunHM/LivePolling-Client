@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import validateInput from "../utils/loginInputValidation";
 import useUserSlice from "../store/user/useUserSlice";
+import usePollSlice from "../store/poll/usePollSlice";
 
 const PresenterLogin = () => {
   const { userError, validateUser, resetUserSlice } = useUserSlice((state) => {
@@ -13,9 +14,12 @@ const PresenterLogin = () => {
     };
   });
 
+  const { handlePollReset } = usePollSlice();
+
   // function to reset all userError loading state in userSlice. so that the error from registration page does not appear on login page and vise versa
   useEffect(() => {
     resetUserSlice();
+    handlePollReset();
   }, []);
 
   const navigate = useNavigate();

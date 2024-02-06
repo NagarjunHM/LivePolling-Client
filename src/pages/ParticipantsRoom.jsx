@@ -5,14 +5,6 @@ import { useNavigate } from "react-router-dom";
 import useParticipantsPoll from "../store/participants/useParticipantsPoll";
 
 const ParticipantsRoom = () => {
-  // const {
-  //   poll,
-  //   userAnswer,
-  //   participantsMsg,
-  //   setPoll,
-  //   setParticipantsMsg,
-  //   setUserAnswer,
-  // } = useParticipantsPoll;
   const navigate = useNavigate();
   const { roomId } = useParams();
   const [poll, setPoll] = useState([]);
@@ -97,7 +89,7 @@ const ParticipantsRoom = () => {
       {poll?.map((poll, pollIndex) => (
         <div
           key={pollIndex}
-          className="border shadow card card-body card-compact"
+          className="border shadow bg-violet-50/40 card card-body card-compact"
         >
           <div className="text-xl font-bold">
             <span className="mr-7">{pollIndex + 1}.</span>

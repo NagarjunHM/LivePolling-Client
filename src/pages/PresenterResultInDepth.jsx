@@ -8,6 +8,8 @@ import OpenClosePolling from "../components/OpenClosePolling";
 // import LoaderComp from "../components/LoaderComp";
 import usePollSlice from "../store/poll/usePollSlice";
 import ProgressBar from "../components/ProgressBar";
+import instance from "../axios/axios";
+import useUserSlice from "../store/user/useUserSlice";
 
 const PresenterResultInDepth = () => {
   const { roomId } = useParams();
@@ -15,6 +17,7 @@ const PresenterResultInDepth = () => {
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState([]);
   const { isPollOpen, setPollOpenClose } = usePollSlice();
+  const { user } = useUserSlice();
 
   useEffect(() => {
     const fetchSpecificPoll = async () => {
@@ -23,25 +26,21 @@ const PresenterResultInDepth = () => {
           setLoading(true);
         }
 
-        const response = await axios.get(
-          `http://localhost:3000/api/poll/${roomId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${
-                JSON.parse(window.localStorage.getItem("user")).state.user.token
-              }`,
-            },
-          }
-        );
+        const response = await instance({
+          url: `poll/${roomId}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         // Update the state with the fetched results
         if (response.status === 200) {
           setAllResult(response.data);
-          console.log(response.data);
         }
       } catch (err) {
         console.error(err);
+        toast.error("failed to fetch the poll details");
       } finally {
         setLoading(false);
         setRefresh(false);

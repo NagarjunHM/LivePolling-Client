@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios, { all } from "axios";
-import usePollSlice from "../store/poll/usePollSlice";
 import { AiOutlineDelete } from "react-icons/ai";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import ProgressBar from "../components/ProgressBar";
+import instance from "../axios/axios";
+import useUserSlice from "../store/user/useUserSlice";
 
 const PresenterResult = () => {
   const [allResult, setAllResult] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useUserSlice();
 
   const fetchAllPollResult = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/poll/", {
+      const response = await instance({
+        url: "poll/",
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(window.localStorage.getItem("user")).state.user.token
-          }`,
+          Authorization: `Bearer ${user.token}`,
         },
       });
 
@@ -27,7 +27,7 @@ const PresenterResult = () => {
         console.log(response.data);
       }
     } catch (err) {
-      console.error(err);
+      toast.error("failed to fetch polls");
     } finally {
       setLoading(false);
     }
@@ -40,18 +40,14 @@ const PresenterResult = () => {
   const handleRoomDeletion = async (roomId) => {
     try {
       setLoading(true);
-      const response = await axios.delete(
-        `http://localhost:3000/api/poll/${roomId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              JSON.parse(window.localStorage.getItem("user")).state.user.token
-            }`,
-          },
-        }
-      );
-      console.log(response);
+
+      const response = await instance({
+        url: `poll/${roomId}`,
+        method: "Delete",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       // Update the state with the fetched results
       if (response.status === 200) {
@@ -60,7 +56,8 @@ const PresenterResult = () => {
         fetchAllPollResult();
       }
     } catch (err) {
-      console.error(err);
+      console.log(err);
+      toast.error("poll deletion failed");
     } finally {
       setLoading(false);
     }
@@ -103,7 +100,7 @@ const PresenterResult = () => {
         {allResult?.map((result, resultIndex) => (
           <Link
             to={`/presenterResult/${result.roomId}`}
-            className="border shadow card card-body card-compact"
+            className="border shadow card card-body bg-violet-100/50 card-compact"
             key={resultIndex}
           >
             <div className="card-title">Room Name : {result.roomName}</div>

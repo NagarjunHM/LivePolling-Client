@@ -7,7 +7,7 @@ const ResultDisplay = ({ questions }) => {
         {questions?.map((question, questionIndex) => (
           <div
             key={questionIndex}
-            className="mb-4 border shadow card card-body card-compact"
+            className="mb-4 border shadow bg-violet-100/50 card card-body card-compact"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1 mb-4 text-xl font-bold flex-0">
@@ -31,7 +31,7 @@ const ResultDisplay = ({ questions }) => {
               return (
                 <div
                   key={optionIndex}
-                  className={`p-1 mb-4 rounded ${
+                  className={` p-1.5 rounded ${
                     optionIndex === question.correctAnswerIndex
                       ? "bg-green-200"
                       : ""

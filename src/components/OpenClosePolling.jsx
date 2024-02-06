@@ -14,7 +14,7 @@ const OpenClosePolling = () => {
     toast.success("poll is closed");
   };
   return (
-    <div className="border shadow card card-body card-compact">
+    <div className="card card-body card-compact">
       <div className="flex justify-between">
         <button
           className="btn btn-success"

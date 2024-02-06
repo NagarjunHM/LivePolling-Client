@@ -1,9 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-import axios from "axios";
-// import { toast } from "sonner";
 import toast from "react-hot-toast";
+import instance from "../../axios/axios";
 
 const useUserSlice = create(
   persist(
@@ -21,19 +19,11 @@ const useUserSlice = create(
       registerNewUser: async ({ name, email, password }) => {
         try {
           set({ userLoading: true });
-          const response = await axios.post(
-            "http://localhost:3000/api/user/register",
-            {
-              name,
-              email,
-              password,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+
+          const response = await instance({
+            url: "user/register",
+            data: { name, email, password },
+          });
 
           const { data, status } = response;
           if (status === 201) {
@@ -60,15 +50,11 @@ const useUserSlice = create(
         try {
           set({ userLoading: true });
 
-          const response = await axios.post(
-            "http://localhost:3000/api/user/login",
-            { email, password },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          const response = await instance({
+            url: "user/login",
+            method: "POST",
+            data: { email, password },
+          });
 
           const { data, status } = response;
           if (status === 200) {
@@ -103,17 +89,15 @@ const useUserSlice = create(
       userLogout: async () => {
         try {
           set({ userLoading: true });
-          const response = await axios.post(
-            "http://localhost:3000/api/user/logout",
-            {},
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${get().user.token}`,
-              },
-            }
-          );
-          console.log(response);
+
+          const response = await instance({
+            url: "user/logout",
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${get().user.token}`,
+            },
+          });
+
           const { data, status } = response;
           if (status === 200) {
             set({ userError: "" });

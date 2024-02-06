@@ -10,7 +10,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="shadow bg-opacity-90 backdrop-blur navbar">
+      <div className="shadow backdrop-blur navbar">
         <div className="flex-grow">
           <p className="text-2xl font-medium cursor-default">
             <span className="text-green-500">Live</span>Polling
@@ -70,7 +70,7 @@ const NavBar = () => {
                 <div
                   className={`absolute w-3 h-3 ${
                     isPollOpen ? "bg-green-500" : "bg-red-500"
-                  } rounded-full top-[-4px] right-[-4px]`}
+                  } rounded-full top-[-4px] right-[5px]`}
                 ></div>
               </button>
 

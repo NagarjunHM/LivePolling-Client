@@ -16,7 +16,6 @@ const NewPollCreation = () => {
     handleCorrectAnswer,
     handleForm,
     redirect,
-    roomId,
     setRedirect,
   } = usePollSlice();
 
@@ -35,7 +34,7 @@ const NewPollCreation = () => {
       <div>
         {questions.map((question, questionIndex) => (
           <React.Fragment key={questionIndex}>
-            <div className="my-4 border shadow card card-body ">
+            <div className="my-4 border shadow bg-violet-100/50 card card-body ">
               {/* card close button */}
               <div className="justify-end card-actions">
                 <div

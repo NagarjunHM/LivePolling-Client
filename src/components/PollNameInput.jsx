@@ -26,7 +26,7 @@ const PollNameInput = () => {
   };
 
   return (
-    <div className="flex gap-4 border shadow card card-body">
+    <div className="flex gap-4 border shadow card card-body bg-violet-50/40">
       <div className="flex items-center gap-2">
         <div>Your Room Id :</div>
         <CopyToClipboard text={roomId}>
