@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
 
-const URL = "https://livepolling.onrender.com/api/";
+const URL = "https://livepolling.onrender.com";
 
-export const socket = io(URL);
+export const socket = io(URL, { withCredentials: true });
 
 // function to generate random 8 character room code
 export const generateRoomId = () => {
