@@ -22,6 +22,7 @@ const useUserSlice = create(
 
           const response = await instance({
             url: "user/register",
+            method: "POST",
             data: { name, email, password },
           });
 
@@ -36,6 +37,7 @@ const useUserSlice = create(
             return false;
           }
         } catch (err) {
+          console.log(err.response.data);
           set({
             userError: err.response ? err.response.data : "An error occurred",
           });

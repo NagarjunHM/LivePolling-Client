@@ -121,9 +121,9 @@ const PresenterLogin = () => {
                   </span>
                 )}
                 <div className="flex flex-row justify-between mt-2">
-                  <Link to="" className="text-sm link link-hover">
+                  {/* <Link to="" className="text-sm link link-hover">
                     Forgot password?
-                  </Link>
+                  </Link> */}
 
                   <Link
                     to="/presenterRegistration"
