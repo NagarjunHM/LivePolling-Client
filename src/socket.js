@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "https://livepolling-client.onrender.com";
+const URL = "https://livepolling.onrender.com/api/";
 
 export const socket = io(URL);
 
