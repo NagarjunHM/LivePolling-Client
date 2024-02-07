@@ -87,7 +87,7 @@ const NewPollCreation = () => {
                     className="w-full max-w-xs input input-bordered"
                   />
 
-                  {optionIndex !== 0 ? (
+                  {optionIndex > 1 ? (
                     <button
                       onClick={() =>
                         handleDeleteOption(questionIndex, optionIndex)

@@ -16,7 +16,7 @@ const usePollSlice = create(
       questions: [
         {
           question: "",
-          options: [""],
+          options: ["", ""],
           correctAnswerIndex: "",
           usersAnswer: [],
           votes: {},
@@ -89,8 +89,18 @@ const usePollSlice = create(
       handleQuestionDelete: (questionIndex) => {
         set((state) => {
           let newQuestion = [...state.questions];
-          console.log(newQuestion.length);
-          newQuestion.splice(questionIndex, 1);
+          if (newQuestion.length === 1) {
+            newQuestion.splice(questionIndex, 1);
+            newQuestion.push({
+              question: "",
+              options: ["", ""],
+              correctAnswerIndex: "",
+              usersAnswer: [],
+              votes: {},
+            });
+          } else {
+            newQuestion.splice(questionIndex, 1);
+          }
           return { questions: newQuestion };
         });
       },
@@ -103,7 +113,7 @@ const usePollSlice = create(
             ...newQuestion,
             {
               question: "",
-              options: [""],
+              options: ["", ""],
               correctAnswerIndex: "",
               usersAnswer: [],
               votes: {},
@@ -158,7 +168,7 @@ const usePollSlice = create(
               questions: [
                 {
                   question: "",
-                  options: [""],
+                  options: ["", ""],
                   correctAnswerIndex: "",
                   usersAnswer: [],
                   votes: {},
@@ -183,7 +193,7 @@ const usePollSlice = create(
           questions: [
             {
               question: "",
-              options: [""],
+              options: ["", ""],
               correctAnswerIndex: "",
               usersAnswer: [],
               votes: {},
