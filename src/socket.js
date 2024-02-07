@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 
 const URL = "https://livepolling-client.onrender.com";
 
-export const socket = io(URL, { withCredentials: true });
+export const socket = io(URL);
 
 // function to generate random 8 character room code
 export const generateRoomId = () => {
