@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const UserSelection = () => {
   return (
-    <div className="fixed top-0 left-0 min-h-screen hero ">
+    <div className="absolute top-0 left-0 min-h-screen overflow-auto hero bg-base-200">
       <div className="text-center ">
         <h1 className="mb-8 text-4xl font-medium">
           <span className="text-6xl text-green-600">Welcome</span> to{" "}
