@@ -75,13 +75,12 @@ const NavBar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu  shadow bg-base-100 rounded-box w-52"
+                  className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
                 >
-                  <li>
+                  <li className="px-1 m-1">
                     <NavLink to="/presenterLogin">Login</NavLink>
                   </li>
-                  &nbsp;
-                  <li>
+                  <li className="px-1 m-1">
                     <NavLink to="/presenterRegistration">Register</NavLink>
                   </li>
                 </ul>

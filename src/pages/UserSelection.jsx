@@ -19,11 +19,11 @@ const UserSelection = () => {
           started!
         </p>
         <div className="flex flex-row justify-center mb-8">
-          <Link to="/presenterLogin" className="btn btn-neutral">
+          <Link to="/presenterLogin" className="btn btn-outline">
             Be a Presenter
           </Link>
           <div className="divider">OR</div>
-          <Link to="participants" className="btn btn-neutral">
+          <Link to="participants" className="btn btn-outline">
             Join as a Participant
           </Link>
         </div>

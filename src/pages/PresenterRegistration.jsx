@@ -57,7 +57,7 @@ const PresenterRegistration = () => {
     <div>
       {/* registration form */}
       <div className="absolute top-0 left-0 min-h-screen hero bg-base-200">
-        <div className="flex-col mt-20 lg:mt-0 hero-content lg:flex-row-reverse">
+        <div className="flex-col mt-20 lg:mt-20 hero-content lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Presenter Registration</h1>
             <p className="py-6">
